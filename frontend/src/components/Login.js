@@ -16,8 +16,9 @@ const Login = ({ onLoginSuccess }) => {
         ? await createUserWithEmailAndPassword(auth, email, password)
         : await signInWithEmailAndPassword(auth, email, password);
       
-      // Call parent component to handle successful login
-      onLoginSuccess(userCredential.user);
+        const idToken = await userCredential.user.getIdToken();
+      
+      onLoginSuccess(idToken);
     } catch (error) {
       setError(error.message);
     }
